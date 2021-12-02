@@ -42,7 +42,6 @@ public class SimpleAnomalyDetector implements TimeSeriesAnomalyDetector {
 
 	@Override
 	public List<AnomalyReport> detect(TimeSeries ts) {
-		int count=1;
 		for(int i=0;i<whoIscorrelate.size();i++) {
 			float[] feat1=ts.oneColumn(whoIscorrelate.get(i).feature1);
 			float[] feat2=ts.oneColumn(whoIscorrelate.get(i).feature2);
@@ -51,8 +50,8 @@ public class SimpleAnomalyDetector implements TimeSeriesAnomalyDetector {
 			for (int k = 0; k < size; k++) {
 				myNewPoints[k] = new Point(feat1[k], feat2[k]);
 			}
-			float maxDev = 0;
 			float counter = 0;
+			int count=1;
 			for (int k = 0; k < size; k++) {
 				counter = StatLib.dev(myNewPoints[k], whoIscorrelate.get(i).lin_reg);
 				if (counter > whoIscorrelate.get(i).threshold) {

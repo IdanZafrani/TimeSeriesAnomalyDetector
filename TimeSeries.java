@@ -7,7 +7,7 @@ public class TimeSeries {
 	public Map<String, List<String>> columns = new HashMap<>();
 	//column names
 	public List<String> columnNames = new ArrayList<>();
-	public TimeSeries(String csvFileName) throws FileNotFoundException {
+	public TimeSeries(String csvFileName) {
 		try {
 			String CurrentLine;
 			BufferedReader br = new BufferedReader(new FileReader(csvFileName));
@@ -15,7 +15,7 @@ public class TimeSeries {
 			while ((CurrentLine = br.readLine()) != null) {
 				String[] fields = CurrentLine.split(",");
 				for (int i = 0; i < fields.length; i++) {
-					if(flag) {
+					if(flag==true) {
 						//array list as null, since we don't have values yet
 						columns.put(fields[i], null);
 						//also seperately store the column names to be used to as key to get the list
@@ -54,8 +54,13 @@ public class TimeSeries {
 		for(int j=0;j<bigFloatCol.length;j++){
 			floatCol[j]=Float.parseFloat(bigFloatCol[j]);
 		}
+
 		return floatCol;
 	}
+
+
+
+
 
 
 

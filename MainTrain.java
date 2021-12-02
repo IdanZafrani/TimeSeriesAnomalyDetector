@@ -75,19 +75,12 @@ public class MainTrain {
 		// expected correlations:
 		//	A-C: y=a1*x+b1
 		//	B-D: y=a2*x+b2
-		try {
-			TimeSeries ts=new TimeSeries("trainFile1.csv");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		//TimeSeries ts=new TimeSeries("trainFile1.csv");
+
 
 		generateTrainCSV(a1,b1,a2,b2);
 		TimeSeries ts= null;
-		try {
-			ts = new TimeSeries("trainFile1.csv");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		ts = new TimeSeries("trainFile1.csv");
 		SimpleAnomalyDetector ad=new SimpleAnomalyDetector();
 		ad.learnNormal(ts);
 		List<CorrelatedFeatures> cf=ad.getNormalModel();
@@ -105,12 +98,14 @@ public class MainTrain {
 		int anomaly=5+r.nextInt(90); // one anomaly injected in a random time step
 		generateTestCSV(a1,b1,a2,b2,anomaly);
 		TimeSeries ts2= null;
-		try {
-			ts2 = new TimeSeries("testFile1.csv");
+		ts2 = new TimeSeries("testFile1.csv");
+
+		List<AnomalyReport> reports = ad.detect(ts2);
+		/*try {
+			TimeSeries ts3 = new TimeSeries("testFile3.csv");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		}
-		List<AnomalyReport> reports = ad.detect(ts2);
+		}*/
 
 		boolean anomlyDetected=false;
 		int falseAlarms=0;
