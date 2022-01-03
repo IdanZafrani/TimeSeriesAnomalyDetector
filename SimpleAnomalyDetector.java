@@ -9,10 +9,10 @@ public class SimpleAnomalyDetector implements TimeSeriesAnomalyDetector {
 	@Override
 	public void learnNormal(TimeSeries ts) {
 		float p;
-		for(int i=0;i<ts.columns.keySet().size();i++){
+		for(int i=0;i<ts.columns2.keySet().size();i++){
 			int c=-1;
 			float m=0f;
-			for(int j=i+1;j<ts.columns.keySet().size();j++){
+			for(int j=i+1;j<ts.columns2.keySet().size();j++){
 				if((p=Math.abs(StatLib.pearson(ts.oneColumn(ts.columnNames.get(i)),ts.oneColumn(ts.columnNames.get(j)))))>m){
 					m=p;
 					c=j;
@@ -32,7 +32,7 @@ public class SimpleAnomalyDetector implements TimeSeriesAnomalyDetector {
 					if(counter>maxDev)
 						maxDev=counter;
 				}
-				String[] fe1=(String[]) ts.columns.keySet().toArray(new String[i]);
+				String[] fe1=(String[]) ts.columns2.keySet().toArray(new String[i]);
 				CorrelatedFeatures correlated=new CorrelatedFeatures(fe1[i],fe1[c],m,line,maxDev*(1.1f));
 				whoIscorrelate.add(correlated);
 			}
